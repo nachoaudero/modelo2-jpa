@@ -1,5 +1,19 @@
 package org.example.entities;
 
-public class UnidadMedida implements Serializable {
+import lombok.*;
+import javax.persistence.*;
+import java.io.Serializable;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@ToString
+@Setter
+@Builder
+@Entity
+public class UnidadMedida implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String denominacion;
 }
