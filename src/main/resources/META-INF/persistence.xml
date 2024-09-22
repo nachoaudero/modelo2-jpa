@@ -3,15 +3,18 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="example-unit" transaction-type="RESOURCE_LOCAL">
-
+    <persistence-unit name="basePrueba" transaction-type="RESOURCE_LOCAL">
+        <class>entities.Articulo</class>
+        <class>entities.Imagen</class>
+        <class>entities.Promocion</class>
+        <class>entities.UnidadMedida</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.url" value=""/>
-            <property name="javax.persistence.jdbc.user" value=""/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/D:\Documentos\UTN\Tecnicatura en Programación\3º Semestre\Programación III\ejercicios 2-09\Ejercicio 2 con jpa\src\main\java\persistence\basePrueba"/>
+            <property name="javax.persistence.jdbc.user" value="java"/>
+            <property name="javax.persistence.jdbc.password" value="backend"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>

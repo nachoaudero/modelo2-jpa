@@ -1,0 +1,20 @@
+<configuration>
+    <!-- Desactiva el logging para los mensajes de inicialización de SLF4J -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <!-- Configura el nivel de logging de Hibernate a ERROR -->
+    <logger name="org.hibernate" level="ERROR"/>
+
+
+    <!-- Configuración del appender para la consola -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Nivel de logging general -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
