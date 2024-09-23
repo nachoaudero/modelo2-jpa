@@ -1,12 +1,12 @@
 package org.example;
 
-import org.example.entities.Articulo;
-import org.example.entities.Imagen;
-import org.example.entities.UnidadMedida;
+import org.example.entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -114,6 +114,114 @@ public class Main {
                     .imagen(imagen8)
                     .unidadMedida(porcionLitro)
                     .build();
+
+            // CREACION DE PROMOS
+            Promocion promocion1 = Promocion.builder()
+                    .denominacion("Promocion Happy Hour Septiembre")
+                    .fechaDesde(LocalDate.of(2024, 9, 1))
+                    .fechaHasta(LocalDate.of(2024, 9,30))
+                    .horaDesde(LocalTime.of(16,30))
+                    .horaHasta(LocalTime.of(20, 30))
+                    .descripcionDescuento("Promocion Septiembre Happy Hour 15%off llevando 1 Pizza Grande Hawaiana, 1 Pizza Grande Mizza y 1 Cerveza QUilmes")
+                    .tipoPromocion(TipoPromocion.happyHour)
+                    .build();
+
+            promocion1.getPromoImagen().add(imahappy1);
+            promocion1.getPromoImagen().add(imahappy2);
+            promocion1.getArticulos().add(pizzaGrande1);
+            promocion1.getArticulos().add(pizzaGrande3);
+            promocion1.getArticulos().add(cerveza2);
+
+            Double precioProm1 = 0D;
+            for (Articulo articulo: promocion1.getArticulos()) {
+                precioProm1 += articulo.getPrecioVenta();
+            }
+            promocion1.setPrecioPromocional(precioProm1*0.85);
+
+            Promocion promocion2 = Promocion.builder()
+                    .denominacion("Promocion Verano")
+                    .fechaDesde(LocalDate.of(2024, 12,21))
+                    .fechaHasta(LocalDate.of(2025, 3, 21))
+                    .horaDesde(LocalTime.of(0,0))
+                    .horaHasta(LocalTime.of(23,59))
+                    .descripcionDescuento("Promocion Verano 20% off llevando 1 Pizza Chica Hawaiana, 1 Pizza Grande Napolitana, 1 Cerveza Quilmes y 1 Cerveza Andes")
+                    .tipoPromocion(TipoPromocion.Verano)
+                    .build();
+
+            promocion2.getPromoImagen().add(verano1);
+            promocion2.getPromoImagen().add(verano2);
+            promocion2.getArticulos().add(pizzaChica1);
+            promocion2.getArticulos().add(pizzaGrande2);
+            promocion2.getArticulos().add(cerveza1);
+            promocion2.getArticulos().add(cerveza2);
+
+            precioProm1 = 0D;
+            for (Articulo articulo: promocion2.getArticulos()) {
+                precioProm1 += articulo.getPrecioVenta();
+            }
+            promocion2.setPrecioPromocional(precioProm1*0.8);
+
+            Promocion promocion3 = Promocion.builder()
+                    .denominacion("Promocion Incierno")
+                    .fechaDesde(LocalDate.of(2025, 6, 21))
+                    .fechaHasta(LocalDate.of(2025, 9, 21))
+                    .horaDesde(LocalTime.of(0,0))
+                    .horaHasta(LocalTime.of(0,0))
+                    .descripcionDescuento("Promocion Invierno 30% off llevando 1 Pizza Grande Hawaiana, 1 Pizza Chica Muzza y 1 Cerveza Quilmes")
+                    .tipoPromocion(TipoPromocion.Invierno)
+                    .build();
+
+            promocion3.getPromoImagen().add(invierno1);
+            promocion3.getPromoImagen().add(invierno2);
+            promocion3.getArticulos().add(pizzaGrande1);
+            promocion3.getArticulos().add(pizzaChica3);
+            promocion3.getArticulos().add(cerveza2);
+
+            precioProm1 = 0D;
+            for (Articulo articulo: promocion3.getArticulos()) {
+                precioProm1 += articulo.getPrecioVenta();
+            }
+            promocion3.setPrecioPromocional(precioProm1*0.7);
+
+            //PERSISTENCIAS
+
+            em.getTransaction().begin();
+            em.persist(imagen1);
+            em.persist(imagen2);
+            em.persist(imagen3);
+            em.persist(imagen4);
+            em.persist(imagen5);
+            em.persist(imagen6);
+            em.persist(imagen7);
+            em.persist(imagen8);
+            em.persist(imahappy1);
+            em.persist(imahappy2);
+            em.persist(verano1);
+            em.persist(verano2);
+            em.persist(invierno1);
+            em.persist(invierno2);
+
+            em.persist(porcionesOcho);
+            em.persist(porcionesCuatro);
+            em.persist(porcionLitro);
+
+            em.persist(pizzaGrande1);
+            em.persist(pizzaGrande2);
+            em.persist(pizzaGrande3);
+            em.persist(pizzaChica1);
+            em.persist(pizzaChica2);
+            em.persist(pizzaChica3);
+            em.persist(cerveza1);
+            em.persist(cerveza2);
+
+            em.persist(promocion1);
+            em.persist(promocion2);
+            em.persist(promocion3);
+
+            em.getTransaction().commit();
+
+            System.out.println("Todo Cargado con Exito");
+
         }catch (Exception e) {
             em.getTransaction().rollback();
             System.out.println(e.getMessage());
